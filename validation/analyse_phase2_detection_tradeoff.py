@@ -26,7 +26,7 @@ Outputs:
     results/phase2-detection-tradeoff/watermarked-scores.csv
     results/phase2-detection-tradeoff/detection-cells.csv
     results/phase2-detection-tradeoff/detection-summary.json
-    paper/figures/fig7-detection-tradeoff.pdf
+    paper/figures/fig10-detection-tradeoff.pdf
     paper/phase2-detection-tables.md
 
 Usage (repo root): python validation/analyse_phase2_detection_tradeoff.py
@@ -239,7 +239,7 @@ def main() -> int:
     os.makedirs(FIG, exist_ok=True)
     cells = build_cells()
     cells.to_csv(os.path.join(OUT, "detection-cells.csv"), index=False)
-    figure(cells, os.path.join(FIG, "fig7-detection-tradeoff.pdf"))
+    figure(cells, os.path.join(FIG, "fig10-detection-tradeoff.pdf"))
     markdown(cells, os.path.join(ROOT, "paper", "phase2-detection-tables.md"))
 
     raised = cells[cells.threshold_shift > 0]

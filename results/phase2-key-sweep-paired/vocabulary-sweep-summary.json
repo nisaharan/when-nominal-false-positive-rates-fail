@@ -1,0 +1,72 @@
+{
+  "scope": "paired cross-vocabulary comparison of the null green rate over a wide key sample; identical passages, identical lengths, detector-only",
+  "n_keys": 128,
+  "by_length": {
+    "128": {
+      "n_texts": 800,
+      "n_keys": 128,
+      "spearman": 0.011152996044480081,
+      "spearman_ci95": [
+        -0.1626923883259999,
+        0.18432676471213705
+      ],
+      "spearman_p": 0.9005648677999067,
+      "pearson": 0.009495909657633816,
+      "smollm2_p_k_range": [
+        0.2175742851043498,
+        0.3150928627339358
+      ],
+      "qwen_p_k_range": [
+        0.2083016032572827,
+        0.3080914232335232
+      ],
+      "smollm2_spread": 0.09751857762958596,
+      "qwen_spread": 0.09978981997624048
+    },
+    "256": {
+      "n_texts": 313,
+      "n_keys": 128,
+      "spearman": 0.013510594314519975,
+      "spearman_ci95": [
+        -0.1603959660277258,
+        0.18660361402056333
+      ],
+      "spearman_p": 0.8796898844978323,
+      "pearson": 0.011968026617353425,
+      "smollm2_p_k_range": [
+        0.2151131009709243,
+        0.3165005075877866
+      ],
+      "qwen_p_k_range": [
+        0.2078551655121323,
+        0.3068765189815837
+      ],
+      "smollm2_spread": 0.1013874066168623,
+      "qwen_spread": 0.0990213534694514
+    },
+    "512": {
+      "n_texts": 93,
+      "n_keys": 128,
+      "spearman": -0.020740969638375694,
+      "spearman_ci95": [
+        -0.19357476900062523,
+        0.15334144747557096
+      ],
+      "spearman_p": 0.8162426150988771,
+      "pearson": -0.022686421091956274,
+      "smollm2_p_k_range": [
+        0.2132714963952875,
+        0.3198962546157904
+      ],
+      "qwen_p_k_range": [
+        0.2070725882430271,
+        0.3047479240156877
+      ],
+      "smollm2_spread": 0.10662475822050291,
+      "qwen_spread": 0.09767533577266058
+    }
+  },
+  "headline_length": 128,
+  "ten_key_interval_halfwidth": 0.6296345164631946,
+  "sweep_interval_halfwidth": 0.1735336362598766
+}

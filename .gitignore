@@ -1,6 +1,6 @@
 # --- third-party material, kept locally, not republished -------------------
 # Wayne Pan, "How to Remove Claude Watermarks From Content You Own" (12 Aug 2026).
-# Cited by title, author, date and URL in AI-Watermarks-3D.md; the full text is
+# Cited in archive/legacy-exploratory/AI-Watermarks-3D.md; the full text is
 # the author's copyright and is not ours to redistribute.
 Watermrk.md
 Convo.docx
@@ -19,11 +19,14 @@ venv/
 .claude/
 
 # --- local scratch ---------------------------------------------------------
-gifs_preview/
 *.tmp
 
-# derived upload variants: regenerate with FRAMES=40 OUTDIR=gifs/social
-gifs/social/
+# tectonic writes the build here; the shipped copy is
+# paper/when-nominal-false-positive-rates-fail.pdf
+paper/arxiv/main.pdf
+# stray root copy of the 3 September 17-page snapshot (kept in archive/)
+/when-nominal-false-positive-rates-fail.pdf
+
 article/*.draft.md
 
 article/*.html
@@ -61,6 +64,22 @@ results/**
 !results/phase2-human-null/human-scores.csv.gz
 !results/phase2-human-null/run.json
 
+!results/phase2-human-null-qwen/vocabulary-cells.csv
+!results/phase2-human-null-qwen/vocabulary-summary.json
+!results/phase2-human-null-qwen/human-texts.csv
+!results/phase2-human-null-qwen/human-scores.csv.gz
+!results/phase2-human-null-qwen/run.json
+
+!results/phase2-key-sweep/sweep-cells.csv
+!results/phase2-key-sweep/key-sweep-summary.json
+!results/phase2-key-sweep/run.json
+
+!results/phase2-key-sweep-paired/vocabulary-sweep-summary.json
+!results/phase2-key-sweep-paired/smollm2/sweep-cells.csv
+!results/phase2-key-sweep-paired/smollm2/run.json
+!results/phase2-key-sweep-paired/qwen/sweep-cells.csv
+!results/phase2-key-sweep-paired/qwen/run.json
+
 !results/phase2-confirmatory-null/thresholds.json
 !results/phase2-confirmatory-null/confirmation-gate.json
 !results/phase2-confirmatory-null/failure-diagnosis.json
@@ -79,9 +98,13 @@ data/phase2-v2-kgw-joint-*.json
 # The project began as twelve 3D visualisations of watermark and style metrics.
 # That work is exploratory, is superseded by the measured study in this
 # repository, and makes no claim the paper relies on, so it is not published.
-gifs/
+# It now lives under archive/legacy-exploratory/ together with the twelve GIFs,
+# the document they illustrate and their dependency list.
 archive/
-AI-Watermarks-3D.md
+
+# Outreach figures kept local, like the GIFs they rebuild. Delete to ship.
+explainer/
+gifs-v2/
 
 # Third-party reference material that is cited, not ours to redistribute.
 docs/references/
@@ -93,8 +116,6 @@ docs/research-transformation/phase-2/NEXT-SESSION.md
 docs/research-transformation/phase-2/v1-publication-plan.md
 docs/research-transformation/v2-ideas.md
 
-# Legacy dependency list for the unpublished visualisation scripts.
-requirements.txt
 
 !results/phase2-detection-tradeoff/detection-cells.csv
 !results/phase2-detection-tradeoff/detection-summary.json

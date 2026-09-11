@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "A6 human-text null: detector-only scoring of human-written Dolly text; not a generation run",
+  "protocol": "configs/phase2-confirmatory-null.json",
+  "source": {
+    "dataset": "databricks/databricks-dolly-15k",
+    "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+    "split": "train",
+    "file": "databricks-dolly-15k.jsonl",
+    "file_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+    "license": "CC-BY-SA-3.0",
+    "attribution": "Databricks, Inc. (2023), databricks-dolly-15k",
+    "observed_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec"
+  },
+  "tokenizer": {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "device": "cpu"
+  },
+  "variants": {
+    "kgw": "kgw_author_selfhash_v1",
+    "synthid": "synthid_deepmind_hash_v1"
+  },
+  "key_schedule_source": "configs/phase2-variance-pilot.json",
+  "selection_seed": "phase2-human-null-v1",
+  "fields": [
+    "response",
+    "context"
+  ],
+  "eligible_candidates": 5340,
+  "texts_scored": 5000,
+  "texts_by_min_length": {
+    "128": 5000,
+    "256": 1921,
+    "512": 526
+  },
+  "score_rows": 148940,
+  "elapsed_seconds": 3795.2
+}

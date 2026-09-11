@@ -1,0 +1,84 @@
+{
+  "scope": "marginal distribution of the KGW null green rate and nominal-threshold false-positive rate over a wider key sample; detector-only, human text",
+  "n_keys": 128,
+  "texts_scored": 1500,
+  "paper_keys_are_prefix": true,
+  "by_length": {
+    "128": {
+      "keys_above_1pct_certain": 68,
+      "keys_above_1pct_certain_frac": 0.53125,
+      "n_keys": 128,
+      "n_texts": 1500,
+      "p_k_min": 0.2166016961115394,
+      "p_k_max": 0.315067377542267,
+      "p_k_median": 0.2476979792166614,
+      "p_k_above_gamma_frac": 0.4609375,
+      "fpr_min": 0.0013333333333333,
+      "fpr_max": 0.3,
+      "fpr_median": 0.016,
+      "keys_above_1pct": 88,
+      "keys_above_1pct_frac": 0.6875,
+      "keys_above_1pct_ci95": [
+        0.5996185457141879,
+        0.7664738571196567
+      ],
+      "keys_above_5pct_frac": 0.1328125,
+      "keys_above_10pct_frac": 0.0234375
+    },
+    "256": {
+      "keys_above_1pct_certain": 58,
+      "keys_above_1pct_certain_frac": 0.453125,
+      "n_keys": 128,
+      "n_texts": 588,
+      "p_k_min": 0.2143650011793925,
+      "p_k_max": 0.3170692789055237,
+      "p_k_median": 0.24767243412745765,
+      "p_k_above_gamma_frac": 0.4453125,
+      "fpr_min": 0.0,
+      "fpr_max": 0.5374149659863946,
+      "fpr_median": 0.0170068027210884,
+      "keys_above_1pct": 90,
+      "keys_above_1pct_frac": 0.703125,
+      "keys_above_1pct_ci95": [
+        0.6159940200893326,
+        0.7805982043627187
+      ],
+      "keys_above_5pct_frac": 0.2265625,
+      "keys_above_10pct_frac": 0.1015625
+    },
+    "512": {
+      "keys_above_1pct_certain": 57,
+      "keys_above_1pct_certain_frac": 0.4453125,
+      "n_keys": 128,
+      "n_texts": 179,
+      "p_k_min": 0.2156253238006424,
+      "p_k_max": 0.3193911972276909,
+      "p_k_median": 0.2475448715734696,
+      "p_k_above_gamma_frac": 0.4453125,
+      "fpr_min": 0.0,
+      "fpr_max": 0.8212290502793296,
+      "fpr_median": 0.0223463687150838,
+      "keys_above_1pct": 91,
+      "keys_above_1pct_frac": 0.7109375,
+      "keys_above_1pct_ci95": [
+        0.6242216985863043,
+        0.7876195944151007
+      ],
+      "keys_above_5pct_frac": 0.34375,
+      "keys_above_10pct_frac": 0.1875
+    }
+  },
+  "paper_ten_vs_all_at_max_length": {
+    "length": 512,
+    "paper_ten_p_k_range": [
+      0.2166845116798489,
+      0.2804084781081983
+    ],
+    "all_keys_p_k_range": [
+      0.2156253238006424,
+      0.3193911972276909
+    ],
+    "paper_ten_median_p_k": 0.2460309236809081,
+    "all_keys_median_p_k": 0.2475448715734696
+  }
+}

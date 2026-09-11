@@ -18,10 +18,13 @@ it claims to be. A single-column figure would be authored at `COLUMNWIDTH`
 | 4 | `figures/fig4-key-green-rate-mechanism.pdf` | `validation/analyse_phase2_nominal_fpr.py` |
 | 5 | `figures/fig5-z-vs-repetition.pdf` | `validation/analyse_phase2_nominal_fpr.py` |
 | 6 | `figures/fig6-human-vs-model-null.pdf` | `validation/analyse_phase2_human_null.py` |
-| 7 | `figures/fig7-detection-tradeoff.pdf` | `validation/analyse_phase2_detection_tradeoff.py` |
-| 8 | `figures/fig8-design-margin.pdf` | `validation/build_phase2_publication_figures.py` |
+| 7 | `figures/fig7-vocabulary.pdf` | `validation/analyse_phase2_vocabulary.py` |
+| 8 | `figures/fig8-vocabulary-sweep.pdf` | `validation/analyse_phase2_vocabulary_sweep.py` |
+| 9 | `figures/fig9-key-sweep.pdf` | `validation/analyse_phase2_key_sweep.py` |
+| 10 | `figures/fig10-detection-tradeoff.pdf` | `validation/analyse_phase2_detection_tradeoff.py` |
+| 11 | `figures/fig11-design-margin.pdf` | `validation/build_phase2_publication_figures.py` |
 
-Figures 1 to 7 are computed from stored detector scores. Figure 8 is the only one
+Figures 1 to 10 are computed from stored detector scores. Figure 11 is the only one
 whose numbers come from a report artifact,
 `reports/phase2-confirmation-gate/artifact.json`.
 

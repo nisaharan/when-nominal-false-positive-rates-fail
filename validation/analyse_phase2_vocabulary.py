@@ -18,7 +18,7 @@ Inputs:
 Outputs:
     results/phase2-human-null-qwen/vocabulary-cells.csv
     results/phase2-human-null-qwen/vocabulary-summary.json
-    paper/figures/fig9-vocabulary.pdf
+    paper/figures/fig7-vocabulary.pdf
     paper/phase2-vocabulary-tables.md
 
 Usage (repo root): python validation/analyse_phase2_vocabulary.py
@@ -46,6 +46,17 @@ Z = stats.norm.ppf(0.99)
 GAMMA = 0.25
 LENGTHS = (128, 256, 512)
 VOCAB = {"SmolLM2": "SmolLM2-135M, 49k tokens", "Qwen2.5": "Qwen2.5-0.5B, 152k tokens"}
+
+
+def spearman_ci(rho, n, conf=0.95):
+    """Fisher-z interval. Ten keys is a small sample and the interval says so;
+    without it a non-significant rho reads as an established zero."""
+    if n < 4:
+        return float("nan"), float("nan")
+    se = 1.0 / np.sqrt(n - 3)
+    zc = stats.norm.ppf(1 - (1 - conf) / 2)
+    z = np.arctanh(rho)
+    return float(np.tanh(z - zc * se)), float(np.tanh(z + zc * se))
 
 
 def cp(x, n, conf=0.95):
@@ -80,7 +91,7 @@ def cells(scores: pd.DataFrame, label: str) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def figure(c: pd.DataFrame, L: int, rho: float, out: str) -> None:
+def figure(c: pd.DataFrame, L: int, rho: float, ci: tuple, out: str) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(fs.TEXTWIDTH, 2.95))
     keys = sorted(c.key_id.unique())
     x = np.arange(len(keys))
@@ -125,7 +136,12 @@ def figure(c: pd.DataFrame, L: int, rho: float, out: str) -> None:
     ax.set_ylim(*lim)
     ax.set_xlabel("$p_k$ under the SmolLM2 vocabulary")
     ax.set_ylabel("$p_k$ under the Qwen2.5 vocabulary")
-    fs.title(ax, f"(b)  The ranking does not transfer, $\\rho = {rho:+.2f}$")
+    # State rho with its interval. With ten keys the interval is wide, so the
+    # caption must not report a non-significant correlation as a proven zero.
+    lo, hi = ci
+    verdict = ("The ranking transfers" if lo > 0.3 else
+               "No evidence the ranking transfers")
+    fs.title(ax, f"(b)  {verdict}, $\\rho = {rho:+.2f}$ [{lo:+.2f}, {hi:+.2f}]")
     fs.style(ax, grid="both")
     fig.tight_layout()
     fs.save(fig, out)
@@ -143,6 +159,22 @@ def main() -> int:
     s_scores = s_scores[s_scores.prompt_id.isin(set(shared.prompt_id_s))]
     q_scores = q_scores[q_scores.prompt_id.isin(set(shared.prompt_id_q))]
 
+    # Eligibility at each prefix length is itself tokenizer-dependent: a passage
+    # that reaches 512 tokens under the 49k vocabulary can fall short under the
+    # 152k one, which would leave the longer cells comparing different text and
+    # reintroduce the confound this experiment removes. Restrict every length to
+    # the passages both runs scored at that length.
+    s_to_q = dict(zip(shared.prompt_id_s, shared.prompt_id_q))
+    s_at = s_scores.groupby("length").prompt_id.agg(set).to_dict()
+    q_at = q_scores.groupby("length").prompt_id.agg(set).to_dict()
+    s_keep, q_keep = set(), set()
+    for L in LENGTHS:
+        both = {p for p in s_at.get(L, set()) if s_to_q.get(p) in q_at.get(L, set())}
+        s_keep |= {(p, L) for p in both}
+        q_keep |= {(s_to_q[p], L) for p in both}
+    s_scores = s_scores[[k in s_keep for k in zip(s_scores.prompt_id, s_scores.length)]]
+    q_scores = q_scores[[k in q_keep for k in zip(q_scores.prompt_id, q_scores.length)]]
+
     c = pd.concat([cells(s_scores, "SmolLM2"), cells(q_scores, "Qwen2.5")], ignore_index=True)
     c.to_csv(os.path.join(QWEN, "vocabulary-cells.csv"), index=False)
 
@@ -151,7 +183,8 @@ def main() -> int:
     b = c[(c.vocabulary == "Qwen2.5") & (c.length == L)].set_index("key_id")
     keys = sorted(set(a.index) & set(b.index))
     rho, pval = stats.spearmanr(a.loc[keys].p_k, b.loc[keys].p_k)
-    figure(c, L, float(rho), os.path.join(FIG, "fig9-vocabulary.pdf"))
+    ci = spearman_ci(float(rho), len(keys))
+    figure(c, L, float(rho), ci, os.path.join(FIG, "fig7-vocabulary.pdf"))
 
     def spread(vocab, length):
         g = c[(c.vocabulary == vocab) & (c.length == length)]
@@ -169,7 +202,11 @@ def main() -> int:
         "p_k_spread_width": {v: {int(l): round(spread(v, l)[1] - spread(v, l)[0], 4)
                                  for l in LENGTHS if (c.length == l).any()} for v in VOCAB},
         "spearman_p_k_across_vocabularies": float(rho),
+        "spearman_ci95": list(ci),
+        "spearman_n_keys": len(keys),
         "spearman_p": float(pval),
+        "spearman_note": ("ten keys give a wide interval; this is an absence of "
+                          "strong transfer, not an established zero"),
         "worst_key": {v: str(c[(c.vocabulary == v) & (c.length == L)].set_index("key_id").p_k.idxmax())
                       for v in VOCAB},
         "fpr_range_at_nominal": {v: [float(c[(c.vocabulary == v) & (c.length == L)].fpr.min()),
@@ -194,7 +231,9 @@ def main() -> int:
             lines.append(f"| {v} | {L2} | {int(g.n.min()):,} | {g.p_k.min():.3f}-{g.p_k.max():.3f} | "
                          f"{g.fpr.min()*100:.2f}%-{g.fpr.max()*100:.2f}% |")
     lines.append(f"\nSpearman correlation of $p_k$ across the two vocabularies at {L} tokens: "
-                 f"{rho:+.2f} (p = {pval:.2g}) over ten keys.")
+                 f"{rho:+.2f}, 95% CI [{ci[0]:+.2f}, {ci[1]:+.2f}] (p = {pval:.2g}) over "
+                 f"{len(keys)} keys. The interval is wide because ten keys is a small "
+                 f"sample: this is an absence of strong transfer, not an established zero.")
     open(os.path.join(ROOT, "paper", "phase2-vocabulary-tables.md"), "w").write("\n".join(lines) + "\n")
 
     print(json.dumps(summary, indent=1))

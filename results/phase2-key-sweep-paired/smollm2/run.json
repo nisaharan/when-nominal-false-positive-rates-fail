@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "key-space sweep: KGW only, detector-only scoring of human-written Dolly text under many derived keys; nothing generated",
+  "protocol": "configs/phase2-confirmatory-null.json",
+  "source": {
+    "dataset": "databricks/databricks-dolly-15k",
+    "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+    "split": "train",
+    "file": "databricks-dolly-15k.jsonl",
+    "file_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+    "license": "CC-BY-SA-3.0",
+    "attribution": "Databricks, Inc. (2023), databricks-dolly-15k",
+    "observed_sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec"
+  },
+  "tokenizer": {
+    "id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "device": "cpu"
+  },
+  "pair_tokenizer": {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  },
+  "variant": "kgw_author_selfhash_v1",
+  "key_derivation": "ai_watermarks_phase2.key_schedule.derive_kgw_key",
+  "n_keys": 128,
+  "paper_keys_are_prefix": true,
+  "selection_seed": "phase2-human-null-v1",
+  "texts_scored": 800,
+  "elapsed_seconds": 3138.2
+}

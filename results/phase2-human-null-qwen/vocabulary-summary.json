@@ -1,0 +1,78 @@
+{
+  "scope": "identical human passages scored under two vocabularies with the same ten KGW keys and watermark parameters; detector-only, nothing generated",
+  "shared_passages": 4857,
+  "comparison_length": 512,
+  "n_by_length": {
+    "128": 4857,
+    "256": 1875,
+    "512": 511
+  },
+  "p_k_range": {
+    "SmolLM2": {
+      "128": [
+        0.21682959137477154,
+        0.2817954694076024
+      ],
+      "256": [
+        0.21694582862398934,
+        0.28199877213572455
+      ],
+      "512": [
+        0.21518068132123844,
+        0.2804843310558433
+      ]
+    },
+    "Qwen2.5": {
+      "128": [
+        0.2279973336191765,
+        0.3102682459501829
+      ],
+      "256": [
+        0.22835559713775838,
+        0.3090683853977164
+      ],
+      "512": [
+        0.2290198398580069,
+        0.30586081318233244
+      ]
+    }
+  },
+  "p_k_spread_width": {
+    "SmolLM2": {
+      "128": 0.065,
+      "256": 0.0651,
+      "512": 0.0653
+    },
+    "Qwen2.5": {
+      "128": 0.0823,
+      "256": 0.0807,
+      "512": 0.0768
+    }
+  },
+  "spearman_p_k_across_vocabularies": -0.1515151515151515,
+  "spearman_ci95": [
+    -0.7131120431890168,
+    0.5285320050850784
+  ],
+  "spearman_n_keys": 10,
+  "spearman_p": 0.6760651759978539,
+  "spearman_note": "ten keys give a wide interval; this is an absence of strong transfer, not an established zero",
+  "worst_key": {
+    "SmolLM2": "kgw-07",
+    "Qwen2.5": "kgw-05"
+  },
+  "fpr_range_at_nominal": {
+    "SmolLM2": [
+      0.005870841487279843,
+      0.2583170254403131
+    ],
+    "Qwen2.5": [
+      0.005870841487279843,
+      0.6771037181996086
+    ]
+  },
+  "cells_above_1pct": {
+    "SmolLM2": 19,
+    "Qwen2.5": 24
+  }
+}

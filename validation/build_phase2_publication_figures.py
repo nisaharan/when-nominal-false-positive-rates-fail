@@ -6,7 +6,7 @@ The other figures in the manuscript come from the stored scores by way of
 owns the one figure whose numbers live in the gate report artifact rather than
 in a score file:
 
-    paper/figures/fig8-design-margin.pdf
+    paper/figures/fig11-design-margin.pdf
 
 Panel (a) is the calibration-to-confirmation movement in mean strict exceedances
 per scheme, against the maximum count a cell could carry and still pass. Panel
@@ -113,7 +113,7 @@ def design_margin_figure(gate: dict[str, list[dict]], out: Path) -> None:
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     gate = load_datasets("reports/phase2-confirmation-gate/artifact.json")
-    design_margin_figure(gate, OUT / "fig8-design-margin.pdf")
+    design_margin_figure(gate, OUT / "fig11-design-margin.pdf")
     return 0
 
 
